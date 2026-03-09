@@ -9,69 +9,75 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
         body { background: #000; color: #D4AF37; font-family: sans-serif; text-align: center; margin: 0; overflow-x: hidden; }
-        .gold-title { font-family: 'Cinzel', serif; letter-spacing: 2px; }
-        .grid-box { background: linear-gradient(#1a1a1a, #0a0a0a); border: 2px solid #333; border-radius: 12px; padding: 20px; cursor: pointer; transition: 0.3s; }
-        .grid-box:active { border-color: #D4AF37; transform: scale(0.95); }
+        .gold-title { font-family: 'Cinzel', serif; letter-spacing: 2px; text-shadow: 2px 2px #000; }
+        .grid-box { background: linear-gradient(#222, #050505); border: 2px solid #D4AF37; border-radius: 15px; padding: 25px; cursor: pointer; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2); transition: 0.2s; }
+        .grid-box:active { transform: scale(0.95); border-color: #fff; }
         .overlay { position: fixed; inset: 0; background: #000; z-index: 9999; display: none; flex-direction: column; }
-        .menu-item { background: #111; border-bottom: 1px solid #222; padding: 18px; text-align: left; width: 100%; display: flex; justify-content: space-between; font-weight: bold; color: white; }
+        .menu-item { background: #111; border-bottom: 1px solid #333; padding: 20px; text-align: left; width: 100%; color: #fff; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
     </style>
 </head>
 <body class="p-4">
 
-    <header class="mb-8">
-        <h1 class="gold-title text-3xl font-bold uppercase">Nikki Flicks</h1>
-        <p class="text-[10px] tracking-[0.4em] text-gray-500 mt-1">WOODLAND • IMPERIAL EMPIRE</p>
+    <header class="mb-10">
+        <h1 class="gold-title text-4xl font-bold uppercase">Nikki Flicks</h1>
+        <p class="text-[11px] tracking-[0.5em] text-gray-400 mt-2 font-bold">WOODLAND • CALIFORNIA</p>
     </header>
 
-    <div class="grid grid-cols-2 gap-4 max-w-md mx-auto">
+    <div class="grid grid-cols-2 gap-6 max-w-md mx-auto">
         <div class="grid-box" onclick="openOverlay('tv-menu')">
-            <div class="text-3xl">📺</div><div class="text-[10px] mt-2 font-black uppercase text-blue-500">Live TV Channels</div>
+            <div class="text-4xl">📺</div><div class="text-[11px] mt-3 font-black uppercase text-blue-400">Live TV</div>
         </div>
         <div class="grid-box" onclick="openOverlay('theater-menu')">
-            <div class="text-3xl">🎬</div><div class="text-[10px] mt-2 font-black uppercase text-red-600">Empire Theater</div>
+            <div class="text-4xl">🎬</div><div class="text-[11px] mt-3 font-black uppercase text-red-500">Theater</div>
+        </div>
+        <div class="grid-box" onclick="openOverlay('radio-menu')">
+            <div class="text-4xl">📻</div><div class="text-[11px] mt-3 font-black uppercase text-green-500">Local Radio</div>
         </div>
         <div class="grid-box" onclick="openOverlay('lobby-view')">
-            <div class="text-3xl">🃏</div><div class="text-[10px] mt-2 font-bold uppercase">Card Room</div>
-        </div>
-        <div class="grid-box" onclick="alert('Radio Stations loading next build...')">
-            <div class="text-3xl">📻</div><div class="text-[10px] mt-2 font-bold uppercase">Local Radio</div>
+            <div class="text-4xl">🃏</div><div class="text-[11px] mt-3 font-black uppercase text-white">Card Room</div>
         </div>
     </div>
 
     <div id="tv-menu" class="overlay p-6 overflow-y-auto">
-        <h2 class="gold-title text-2xl mb-6">LIVE BROADCASTS</h2>
-        <div class="max-w-sm mx-auto space-y-2">
-            <button class="menu-item" onclick="playMedia('https://www.youtube.com/embed/videoseries?list=PL6H8pG6uS5T0U_4W1n6mF_lC3u9K9PzW65')"><span>📡 ABC NEWS (LIVE)</span></button>
-            <button class="menu-item" onclick="playMedia('https://www.youtube.com/embed/videoseries?list=PL6H8pG6uS5T0U_4W1n6mF_lC3u9K9PzW66')"><span>📡 NBC NEWS (LIVE)</span></button>
-            <button class="menu-item" onclick="playMedia('https://www.youtube.com/embed/videoseries?list=PL6H8pG6uS5T0U_4W1n6mF_lC3u9K9PzW67')"><span>📡 CBS NEWS (24/7)</span></button>
-            <button class="menu-item" onclick="playMedia('https://www.youtube.com/embed/videoseries?list=PL6H8pG6uS5T0U_4W1n6mF_lC3u9K9PzW68')"><span>📡 THE CW (NEWS)</span></button>
-            <button class="menu-item" onclick="playMedia('https://www.youtube.com/embed/videoseries?list=PL6H8pG6uS5T0U_4W1n6mF_lC3u9K9PzW69')"><span>🎞️ CLASSIC MOVIE CHANNEL</span></button>
+        <h2 class="gold-title text-2xl mb-8">LIVE BROADCASTS</h2>
+        <div class="max-w-sm mx-auto space-y-3">
+            <button class="menu-item" onclick="playMedia('https://www.youtube.com/embed/live_stream?channel=UC16niPrMtuxwMFS7N3NfMaw6')"><span>📡 ABC NEWS LIVE</span></button>
+            <button class="menu-item" onclick="playMedia('https://www.youtube.com/embed/live_stream?channel=UC16niPrMtuxwMFS7N3NfMaw7')"><span>📡 NBC NEWS NOW</span></button>
+            <button class="menu-item" onclick="playMedia('https://www.youtube.com/embed/live_stream?channel=UC16niPrMtuxwMFS7N3NfMaw8')"><span>📡 CBS NEWS LIVE</span></button>
+            <button class="menu-item" onclick="playMedia('https://www.youtube.com/embed/live_stream?channel=UC16niPrMtuxwMFS7N3NfMaw9')"><span>🎞️ CLASSIC MOVIES</span></button>
         </div>
-        <button onclick="closeAll()" class="mt-10 text-gray-500 underline">BACK TO MAIN</button>
+        <button onclick="closeAll()" class="mt-12 text-gray-500 font-bold uppercase underline">Close</button>
     </div>
 
-    <div id="media-view" class="overlay">
-        <div class="flex justify-between items-center p-4 bg-[#111]">
-            <span class="text-[10px] font-bold text-[#D4AF37]">IMPERIAL STREAMING</span>
-            <button onclick="closeAll()" class="text-red-600 font-bold px-4 py-1 border border-red-600 rounded text-xs">EXIT X</button>
+    <div id="radio-menu" class="overlay p-6">
+        <h2 class="gold-title text-2xl mb-8">WOODLAND RADIO</h2>
+        <div class="max-w-sm mx-auto space-y-3">
+            <button class="menu-item" onclick="playMedia('https://stream.zeno.fm/078rsq0unp8uv')"><span>📻 EMPIRE HITS</span></button>
+            <button class="menu-item" onclick="playMedia('https://stream.zeno.fm/6v636u1v7p8uv')"><span>📻 CLASSIC SOUL</span></button>
         </div>
-        <iframe id="stream-frame" src="" class="w-full h-full" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <button onclick="closeAll()" class="mt-12 text-gray-500 font-bold uppercase underline">Close</button>
     </div>
 
-    <div id="theater-menu" class="overlay p-6"><h2 class="gold-title text-2xl mb-6">THEATER</h2><button onclick="closeAll()" class="mt-10 text-gray-500 underline">BACK</button></div>
-    <div id="lobby-view" class="overlay p-8" style="background: radial-gradient(#1a4d1a, #000);"><h2 class="gold-title text-2xl mb-8 font-black">CARD ROOM</h2><button onclick="closeAll()" class="mt-12 text-gray-400 underline">BACK</button></div>
+    <div id="player-view" class="overlay">
+        <div class="flex justify-between items-center p-4 bg-[#111] border-b border-[#333]">
+            <span class="text-[10px] font-bold text-[#D4AF37] tracking-[0.3em]">IMPERIAL STREAM</span>
+            <button onclick="closeAll()" class="bg-red-700 text-white font-bold px-5 py-2 rounded text-xs uppercase">Exit X</button>
+        </div>
+        <iframe id="main-frame" src="" class="w-full h-full" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+
+    <div id="theater-menu" class="overlay p-8"><h2 class="gold-title text-2xl">THEATER</h2><button onclick="closeAll()" class="mt-10 underline">BACK</button></div>
+    <div id="lobby-view" class="overlay p-8" style="background: radial-gradient(#1a4d1a, #000);"><h2 class="gold-title text-2xl">CARD ROOM</h2><button onclick="closeAll()" class="mt-10 underline">BACK</button></div>
 
     <script>
         function openOverlay(id) { document.getElementById(id).style.display = 'flex'; }
         function playMedia(url) { 
-            // This format works best for mobile YouTube embeds
-            let videoId = url.split('/').pop();
-            document.getElementById('stream-frame').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1"; 
-            document.getElementById('media-view').style.display = 'flex'; 
+            document.getElementById('main-frame').src = url; 
+            document.getElementById('player-view').style.display = 'flex'; 
         }
         function closeAll() { 
             document.querySelectorAll('.overlay').forEach(e => e.style.display = 'none'); 
-            document.getElementById('stream-frame').src = ''; 
+            document.getElementById('main-frame').src = ''; 
         }
     </script>
 </body>
