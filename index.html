@@ -1,4 +1,5 @@
-DOCTYPE html>
+html
+<!DOCTYPE html>
 <html lang="en">
 <head>
    <meta charset="UTF-8">
@@ -9,42 +10,39 @@ DOCTYPE html>
        :root {
            --deep-purple: #1a0a2e;
            --royal-purple: #2d1b4e;
-           --electric-purple: #4a148c;
-           --onyx-black: #0d0d0d;
-           --rich-black: #050505;
            --shimmer-gold: #d4af37;
            --bright-gold: #ffd700;
-           --pale-gold: #f4e4c1;
+           --onyx-black: #0d0d0d;
+           --rich-black: #050505;
            --danger-red: #dc143c;
-           --neon-red: #ff073a;
        }
 
        * { margin: 0; padding: 0; box-sizing: border-box; }
-
        body { font-family: 'Inter', sans-serif; background: var(--rich-black); color: #fff; overflow-x: hidden; }
 
        /* AGE GATE */
        #age-gate { position: fixed; inset: 0; background: linear-gradient(135deg, var(--deep-purple), var(--onyx-black)); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; }
-       .age-gate-content { max-width: 600px; border: 3px solid var(--shimmer-gold); padding: 3rem; background: rgba(0,0,0,0.8); box-shadow: 0 0 50px rgba(212,175,55,0.3); }
-       .age-gate-logo { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; background: linear-gradient(45deg, var(--shimmer-gold), var(--bright-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-       .age-warning { font-size: 4rem; color: var(--danger-red); text-shadow: 0 0 20px var(--neon-red); animation: pulse 2s infinite; }
-       @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-       .age-btn { background: var(--shimmer-gold); color: #000; padding: 1rem 3rem; font-size: 1.2rem; font-weight: 800; text-transform: uppercase; cursor: pointer; border: none; margin-top: 2rem; }
+       .age-gate-content { max-width: 600px; border: 3px solid var(--shimmer-gold); padding: 3rem; background: rgba(0,0,0,0.9); box-shadow: 0 0 50px rgba(212,175,55,0.3); }
+       .age-gate-logo { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; background: linear-gradient(45deg, var(--shimmer-gold), var(--bright-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+       .age-warning { font-size: 4rem; color: var(--danger-red); text-shadow: 0 0 20px var(--danger-red); font-weight: 900; }
+       .age-btn { background: var(--shimmer-gold); color: #000; padding: 1.2rem 3rem; font-size: 1.2rem; font-weight: 800; text-transform: uppercase; cursor: pointer; border: none; margin-top: 2rem; border-radius: 5px; }
 
        /* MAIN LOBBY */
        #main-lobby { display: none; min-height: 100vh; }
-       .lobby-header { background: #111; padding: 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--shimmer-gold); sticky: top; }
+       .lobby-header { background: #111; padding: 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--shimmer-gold); position: sticky; top: 0; z-index: 100; }
        
        /* NETFLIX SECTION */
-       .section-title { padding: 20px; font-family: 'Playfair Display', serif; color: var(--shimmer-gold); font-size: 1.5rem; text-transform: uppercase; }
+       .section-title { padding: 20px 20px 10px; font-family: 'Playfair Display', serif; color: var(--shimmer-gold); font-size: 1.4rem; text-transform: uppercase; letter-spacing: 2px; }
        .netflix-row { display: flex; overflow-x: auto; gap: 15px; padding: 0 20px 20px; scrollbar-width: none; }
-       .poster { min-width: 140px; height: 200px; background: #222; border: 1px solid #333; border-radius: 5px; flex-shrink: 0; transition: 0.3s; }
-       .poster:active { transform: scale(1.1); border-color: var(--shimmer-gold); box-shadow: 0 0 15px var(--shimmer-gold); }
+       .netflix-row::-webkit-scrollbar { display: none; }
+       .poster { min-width: 150px; height: 220px; background: #222; border: 1px solid #333; border-radius: 8px; flex-shrink: 0; transition: 0.3s; overflow: hidden; }
+       .poster img { width: 100%; height: 100%; object-fit: cover; }
+       .poster:active { transform: scale(1.05); border-color: var(--shimmer-gold); }
 
-       /* CARD ROOM GRID */
-       .casino-grid { display: grid; grid-cols: 2; gap: 10px; padding: 20px; }
-       .casino-card { background: linear-gradient(var(--royal-purple), #000); border: 2px solid var(--shimmer-gold); padding: 20px; border-radius: 10px; text-align: center; }
-       .chip-amount { color: var(--bright-gold); font-weight: 900; font-size: 1.2rem; }
+       /* CARD ROOM */
+       .casino-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+       .casino-card { background: linear-gradient(135deg, var(--royal-purple), #000); border: 2px solid var(--shimmer-gold); padding: 25px; border-radius: 12px; text-align: center; font-weight: 800; font-size: 0.9rem; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+       .chip-display { color: var(--bright-gold); font-weight: 900; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
    </style>
 </head>
 <body>
@@ -53,43 +51,45 @@ DOCTYPE html>
        <div class="age-gate-content">
            <div class="age-gate-logo">NIKKI FLICKS</div>
            <div class="age-warning">18+</div>
-           <p class="age-text">YOU ARE ENTERING THE SHOT CALLER EXPERIENCE.<br>VERIFY YOUR AGE TO PROCEED.</p>
+           <p style="color: var(--pale-gold); margin-top: 15px; font-weight: 600;">THE SHOT CALLER EXPERIENCE</p>
            <button class="age-btn" onclick="enterEmpire()">ENTER EMPIRE</button>
        </div>
    </div>
 
    <div id="main-lobby">
        <header class="lobby-header">
-           <div class="age-gate-logo" style="font-size: 1.5rem;">NIKKI FLICKS</div>
-           <div style="background: rgba(212,175,55,0.1); border: 1px solid var(--shimmer-gold); padding: 5px 15px; border-radius: 20px;">
-               <span class="chip-amount">💰 10,000</span>
+           <div class="age-gate-logo" style="font-size: 1.4rem; margin: 0;">NIKKI FLICKS</div>
+           <div class="chip-display">
+               <span>💰</span><span>10,000</span>
            </div>
        </header>
 
        <h2 class="section-title">Empire Theater</h2>
        <div class="netflix-row">
-           <div class="poster" onclick="alert('Movie Loading...')"><img src="https://via.placeholder.com/140x200/111/d4af37?text=MOVIE+1" style="width:100%; height:100%;"></div>
-           <div class="poster" onclick="alert('Movie Loading...')"><img src="https://via.placeholder.com/140x200/111/d4af37?text=MOVIE+2" style="width:100%; height:100%;"></div>
-           <div class="poster" onclick="alert('Movie Loading...')"><img src="https://via.placeholder.com/140x200/111/d4af37?text=MOVIE+3" style="width:100%; height:100%;"></div>
-           <div class="poster" onclick="alert('Movie Loading...')"><img src="https://via.placeholder.com/140x200/111/d4af37?text=MOVIE+4" style="width:100%; height:100%;"></div>
+           <div class="poster"><img src="https://images.unsplash.com/photo-1594908900066-3f47337549d8?auto=format&fit=crop&w=300&q=80"></div>
+           <div class="poster"><img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=300&q=80"></div>
+           <div class="poster"><img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=80"></div>
+           <div class="poster"><img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?auto=format&fit=crop&w=300&q=80"></div>
        </div>
 
        <h2 class="section-title">The Card Room</h2>
-       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px;">
-           <div class="casino-card">🃏<br>SPADES</div>
-           <div class="casino-card">🃏<br>POKER</div>
-           <div class="casino-card">🃏<br>TEXAS HOLD'EM</div>
-           <div class="casino-card">🃏<br>PINOCHLE</div>
+       <div class="casino-grid">
+           <div class="casino-card" onclick="alert('Spades Table Joining...')">🃏<br>SPADES</div>
+           <div class="casino-card" onclick="alert('Poker Table Joining...')">🃏<br>POKER</div>
+           <div class="casino-card" onclick="alert('Texas Hold\'em Joining...')">🃏<br>TEXAS HOLD'EM</div>
+           <div class="casino-card" onclick="alert('Pinochle Joining...')">🃏<br>PINOCHLE</div>
        </div>
 
-       <button class="age-btn" style="width: 90%; margin: 5%; background: var(--danger-red); color: #fff;">Watch Ad for +500 Chips</button>
+       <button class="age-btn" style="width: 90%; margin: 20px 5%; background: var(--danger-red); color: #fff; font-size: 1rem;">WATCH AD FOR +500 CHIPS</button>
    </div>
 
    <script>
        function enterEmpire() {
            document.getElementById('age-gate').style.display = 'none';
            document.getElementById('main-lobby').style.display = 'block';
+           window.scrollTo(0,0);
        }
    </script>
 </body>
 </html>
+```
