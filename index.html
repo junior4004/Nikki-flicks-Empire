@@ -1,19 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NIKKI FLICKS EMPIRE</title>
     <style>
-        body { background: #000; color: #D4AF37; font-family: sans-serif; text-align: center; padding: 50px; }
-        .box { border: 2px solid #D4AF37; padding: 20px; margin: 20px; border-radius: 10px; }
-        button { background: #D4AF37; color: #000; padding: 15px 30px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; }
+        body { background: #000; color: #D4AF37; font-family: sans-serif; text-align: center; margin: 0; }
+        #gate { position: fixed; inset: 0; background: #000; z-index: 9999; padding: 40px 20px; border: 5px solid #D4AF37; }
+        #main-lobby { display: none; padding: 20px; }
+        .rules-box { border: 1px solid #444; padding: 20px; margin: 20px 0; background: #0a0a0a; text-align: left; }
+        .btn { background: #D4AF37; color: #000; padding: 20px; width: 100%; font-weight: bold; border: none; font-size: 1.2rem; cursor: pointer; }
+        .poster-row { display: flex; overflow-x: auto; gap: 10px; padding: 20px 0; }
+        .poster { min-width: 140px; height: 200px; background: #222; border: 1px solid #D4AF37; border-radius: 8px; flex-shrink: 0; }
     </style>
 </head>
 <body>
-    <h1>NIKKI FLICKS</h1>
-    <div class="box">
-        <h2>ROADHOUSE RULES</h2>
-        <p>SPEAK AT YOUR WILL, BUT WATCH YOUR TONGUE.</p>
-        <button onclick="alert('Welcome to the Empire')">ENTER EMPIRE</button>
+
+    <div id="gate">
+        <h1 style="font-size: 2.5rem;">NIKKI FLICKS</h1>
+        <div class="rules-box">
+            <h2 style="font-size: 1rem; color: #fff;">WELCOME FROM NICOLE T.</h2>
+            <p style="color: #888; font-style: italic; font-size: 0.8rem;">"Welcome to the Empire. Respect the house."</p>
+            <hr style="border-color: #333;">
+            <p style="font-weight: bold; color: #f00; font-size: 0.7rem; letter-spacing: 1px;">THE ROADHOUSE RULES:</p>
+            <p style="font-size: 0.75rem; color: #ccc;">SPEAK AT YOUR WILL, BUT WATCH YOUR TONGUE. DISRESPECT IS NOT TOLERATED. 18+ ONLY.</p>
+        </div>
+        <button class="btn" onclick="openEmpire()">ENTER EMPIRE</button>
     </div>
+
+    <div id="main-lobby">
+        <h2 style="text-align: left;">EMPIRE THEATER</h2>
+        <div class="poster-row">
+            <div class="poster"></div><div class="poster"></div><div class="poster"></div>
+        </div>
+        <h2 style="text-align: left;">CARD ROOM</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div style="border: 1px solid #D4AF37; padding: 30px;">SPADES</div>
+            <div style="border: 1px solid #D4AF37; padding: 30px;">POKER</div>
+        </div>
+    </div>
+
+    <script>
+        function openEmpire() {
+            console.log("Button clicked!"); // This helps us test
+            document.getElementById('gate').style.display = 'none';
+            document.getElementById('main-lobby').style.display = 'block';
+        }
+    </script>
+
 </body>
 </html>
