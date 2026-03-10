@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIKKI FLICKS EMPIRE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+        body { background: #141414; color: #fff; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; }
+        .gold { color: #D4AF37; font-family: 'Cinzel', serif; }
+        .hero { height: 70vh; background: linear-gradient(to top, #141414, transparent), url('https://image.tmdb.org/t/p/original/r7XifpDYQUmS6OEM9w96p696uCc.jpg'); background-size: cover; background-position: center; display: flex; align-items: flex-end; padding: 40px; }
+        .row { padding: 20px 0 20px 40px; }
+        .row-posters { display: flex; overflow-y: hidden; overflow-x: scroll; padding: 20px; scrollbar-width: none; }
+        .row-poster { object-fit: contain; width: 100%; max-height: 250px; margin-right: 10px; transition: transform 450ms; border-radius: 4px; }
+        .row-poster:hover { transform: scale(1.08); opacity: 1; }
+        .casino-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; padding: 0 40px; }
+        .casino-box { background: #1a1a1a; border: 1px solid #D4AF37; border-radius: 8px; padding: 20px; text-align: center; position: relative; cursor: pointer; transition: 0.3s; }
+        .casino-box:hover { background: #D4AF37; color: #000; }
+        .mic-live { position: absolute; top: 10px; right: 10px; color: #ff0000; font-size: 10px; font-weight: bold; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="gate" class="fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center text-center">
+        <h1 class="gold text-6xl mb-4">NIKKI FLICKS</h1>
+        <div class="border border-[#D4AF37] p-8 bg-[#0a0a0a] max-w-lg">
+            <h2 class="gold text-xl mb-4">WELCOME FROM NICOLE T.</h2>
+            <p class="text-red-600 font-bold mb-6">ROADHOUSE RULES: WATCH YOUR TONGUE. DISRESPECT IS NOT TOLERATED.</p>
+            <button onclick="document.getElementById('gate').style.display='none'" class="bg-[#D4AF37] text-black px-12 py-4 font-black rounded uppercase">Enter Empire</button>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1 class="gold text-5xl mb-4">THE EMPIRE THEATER</h1>
+            <button class="bg-white text-black px-8 py-2 rounded font-bold mr-4">Play</button>
+            <button class="bg-gray-500/50 text-white px-8 py-2 rounded font-bold">More Info</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <h2 class="text-2xl font-bold ml-5">Trending Now</h2>
+        <div class="row-posters">
+            <img class="row-poster" src="https://image.tmdb.org/t/p/w500/8Gxv2mYmUpeTjU3S3nZpS6YpEPv.jpg">
+            <img class="row-poster" src="https://image.tmdb.org/t/p/w500/6oom5QYvA6rEEUbsvMv3Rv70A19.jpg">
+            <img class="row-poster" src="https://image.tmdb.org/t/p/w500/v997093p799p8v.jpg">
+            <img class="row-poster" src="https://image.tmdb.org/t/p/w500/r7XifpDYQUmS6OEM9w96p696uCc.jpg">
+            <img class="row-poster" src="https://image.tmdb.org/t/p/w500/7WsyChQZ3ZpI5STUE9vIAZ3C3rA.jpg">
+        </div>
+    </div>
+
+    <h2 class="text-2xl font-bold ml-10 mb-4 gold">THE CARD ROOM</h2>
+    <div class="casino-grid">
+        <div class="casino-box"><span class="mic-live">● MIC LIVE</span><div class="text-4xl">♠️</div><p class="mt-2 font-bold">SPADES</p></div>
+        <div class="casino-box"><span class="mic-live">● MIC LIVE</span><div class="text-4xl">♥️</div><p class="mt-2 font-bold">POKER</p></div>
+        <div class="casino-box"><span class="mic-live">● MIC LIVE</span><div class="text-4xl">♣️</div><p class="mt-2 font-bold">HOLD'EM</p></div>
+        <div class="casino-box"><span class="mic-live">● MIC LIVE</span><div class="text-4xl">♦️</div><p class="mt-2 font-bold">PINOCHLE</p></div>
+    </div>
+
+    <div class="row mt-10" style="background: rgba(255,0,0,0.05); border-top: 1px solid #400;">
+        <h2 class="text-red-700 text-xl font-bold ml-5 uppercase">After Hours (18+)</h2>
+        <div class="row-posters">
+            <img class="row-poster border border-red-900" src="https://image.tmdb.org/t/p/w500/o73wSBY96su92v5pY0v6as8p0V2.jpg">
+            <img class="row-poster border border-red-900" src="https://image.tmdb.org/t/p/w500/scv7m7n42yS4fC7e8Pclxid9r7S.jpg">
+        </div>
+    </div>
+
+</body>
+</html>
