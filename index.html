@@ -1,89 +1,179 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIKKI FLICKS EMPIRE</title>
+    <title>NIKKI FLICKS EMPIRE | 2026 EDITION</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&display=swap');
-        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; }
-        .gold-text { color: #D4AF37; font-family: 'Cinzel', serif; }
-        .gold-border { border: 1px solid #D4AF37; }
-        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 15px; }
-        .scroll-row { display: flex; overflow-x: auto; gap: 15px; padding: 20px; scrollbar-width: none; }
-        .poster { min-width: 160px; height: 240px; border-radius: 10px; flex-shrink: 0; background: #111; overflow: hidden; border: 1px solid #222; }
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;900&display=swap');
+        :root { --gold: #D4AF37; }
+        body { background: radial-gradient(circle at top, #1a1a1a 0%, #000 100%); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .gold { color: var(--gold); font-family: 'Cinzel', serif; text-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(25px); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 16px; }
+        .scroll-row::-webkit-scrollbar { display: none; }
+        .scroll-row { display: flex; overflow-x: auto; gap: 20px; padding: 20px; scrollbar-width: none; scroll-behavior: smooth; }
+        .poster { min-width: 220px; height: 330px; transition: all 0.5s ease; cursor: pointer; position: relative; border-radius: 12px; overflow: hidden; background: #111; border: 1px solid rgba(212, 175, 55, 0.1); }
         .poster img { width: 100%; height: 100%; object-fit: cover; }
-        .mic-pulse { width: 8px; height: 8px; background: #ff0000; border-radius: 50%; box-shadow: 0 0 10px #ff0000; animation: blink 1s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        .poster:hover { transform: scale(1.1) translateY(-10px); z-index: 10; border: 2px solid var(--gold); box-shadow: 0 0 30px var(--gold); }
+        .mic-active { color: #ff3b3b; animation: pulse 1s infinite; display: block !important; }
+        @keyframes pulse { 50% { opacity: 0.4; } }
     </style>
 </head>
-<body class="bg-black">
+<body class="min-h-screen">
 
-    <div id="gate" class="fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center p-8 text-center">
-        <h1 class="gold-text text-5xl mb-6 tracking-tighter">NIKKI FLICKS</h1>
-        <div class="glass-card p-8 max-w-md gold-border">
-            <h2 class="gold-text text-xl mb-4 uppercase">Nicole T. Welcome</h2>
-            <p class="text-xs text-gray-400 mb-8 leading-loose tracking-widest uppercase">
-                "Speak at your will, but watch your tongue. This is our house. Disrespect is not tolerated."
-            </p>
-            <button onclick="document.getElementById('gate').style.display='none'" class="w-full bg-[#D4AF37] text-black font-bold py-4 rounded-lg hover:bg-yellow-600 transition">ENTER EMPIRE</button>
+    <div id="gate" class="fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center p-6 text-center transition-opacity duration-1000">
+        <div class="glass p-10 max-w-lg">
+            <h1 class="gold text-6xl mb-2 uppercase">Nikki Flicks</h1>
+            <p class="text-gray-400 uppercase tracking-widest text-[10px] mb-8">2026 Imperial Access</p>
+            <button onclick="enterEmpire()" class="w-full bg-[#D4AF37] text-black font-black py-5 rounded-full hover:scale-105 transition-all">ENTER THE EMPIRE</button>
         </div>
     </div>
 
-    <header class="p-5 border-b border-white/10 flex justify-between items-center sticky top-0 bg-black/80 backdrop-blur-md z-50">
-        <span class="gold-text text-2xl tracking-tighter">NIKKI FLICKS</span>
-        <div class="flex items-center gap-4">
-            <button onclick="toggleRadio()" id="r-btn" class="text-[10px] gold-border px-3 py-1 rounded-full text-[#D4AF37] font-bold">EMPIRE RADIO: OFF</button>
-            <div class="text-[#D4AF37] font-bold text-sm">💰 10,000</div>
+    <header class="p-6 flex flex-col md:flex-row justify-between items-center sticky top-0 z-50 glass rounded-none border-x-0 border-t-0 gap-4">
+        <span class="gold text-2xl font-black">NIKKI FLICKS</span>
+        <div class="glass flex items-center px-4 py-1 w-full max-w-md">
+            <input type="text" id="search" placeholder="Search the Vault..." onkeyup="handleSearch(event)" class="bg-transparent border-none outline-none text-xs w-full py-2 text-white">
+        </div>
+        <div class="flex items-center gap-6">
+            <button onclick="toggleRadio()" id="r-btn" class="glass px-4 py-1 rounded text-[10px] font-bold">RADIO: OFF</button>
+            <div class="gold font-black">💰 <span id="balance">10,000</span></div>
         </div>
     </header>
 
-    <audio id="empireAudio" src="https://stream.zeno.fm/f978253v98zuv"></audio>
+    <div class="px-8 mt-6">
+        <div id="vip-banner" class="glass border-gold/40 p-4 flex justify-between items-center mb-6">
+            <div><span class="gold text-[10px] font-black uppercase">Status: <span id="status">CITIZEN</span></span></div>
+            <button id="up-btn" onclick="upgradeToVIP()" class="bg-[#D4AF37] text-black text-[10px] font-black px-4 py-1 rounded-full">UPGRADE TO VIP (5K)</button>
+        </div>
+        <div id="genre-list" class="flex gap-4 overflow-x-auto no-scrollbar pb-2"></div>
+    </div>
 
-    <div class="py-6">
-        <h3 class="px-6 gold-text text-xs tracking-[0.3em] uppercase mb-4 text-gray-500">Theater</h3>
-        <div class="scroll-row">
-            <div class="poster"><img src="https://image.tmdb.org/t/p/w500/8Gxv2mYmUpeTjU3S3nZpS6YpEPv.jpg"></div>
-            <div class="poster"><img src="https://image.tmdb.org/t/p/w500/6oom5QYvA6rEEUbsvMv3Rv70A19.jpg"></div>
-            <div class="poster"><img src="https://image.tmdb.org/t/p/w500/v997093p799p8v.jpg"></div>
+    <div class="px-8">
+        <div id="player-container" class="aspect-video glass hidden mb-10 overflow-hidden shadow-2xl">
+            <video id="main-player" class="video-js vjs-big-play-centered" controls></video>
         </div>
     </div>
 
-    <div class="py-6">
-        <h3 class="px-6 gold-text text-xs tracking-[0.3em] uppercase mb-4 text-gray-500">The Card Room</h3>
-        <div class="scroll-row">
-            <div class="glass-card p-6 min-w-[150px] text-center" onclick="sit('Spades')">
-                <div class="flex justify-center mb-4"><div class="mic-pulse"></div></div>
-                <div class="text-3xl mb-2">♠️</div>
-                <div class="text-[10px] font-bold">SPADES</div>
-            </div>
-            <div class="glass-card p-6 min-w-[150px] text-center" onclick="sit('Poker')">
-                <div class="flex justify-center mb-4"><div class="mic-pulse"></div></div>
-                <div class="text-3xl mb-2">♥️</div>
-                <div class="text-[10px] font-bold">POKER</div>
-            </div>
-        </div>
+    <div class="py-4">
+        <h2 id="row-title" class="px-8 gold text-xs font-black uppercase tracking-widest mb-2">Imperial Trending</h2>
+        <div id="movie-row" class="scroll-row"></div>
     </div>
 
-    <div class="py-6 bg-red-950/10 border-t border-red-900/30">
-        <h3 class="px-6 text-red-600 text-xs tracking-[0.3em] uppercase mb-4 font-bold">After Hours (18+)</h3>
-        <div class="scroll-row">
-            <div class="poster border-red-900/50"><img src="https://image.tmdb.org/t/p/w500/o73wSBY96su92v5pY0v6as8p0V2.jpg"></div>
-            <div class="poster border-red-900/50"><img src="https://image.tmdb.org/t/p/w500/scv7m7n42yS4fC7e8Pclxid9r7S.jpg"></div>
+    <div class="px-8 py-10 grid grid-cols-1 lg:grid-cols-3 gap-6 mb-20">
+        <div class="lg:col-span-1 space-y-4">
+            <div class="glass p-6 text-center cursor-pointer hover:border-gold" onclick="sitAtTable('SPADES')">
+                <span id="s-mic" class="hidden text-[10px] text-red-500 mb-2 font-bold">🎤 LIVE MIC</span>
+                <div class="text-4xl mb-2">♠️</div>
+                <div class="font-black text-xs uppercase">Spades Elite</div>
+            </div>
+            <div class="glass p-6 text-center cursor-pointer hover:border-gold" onclick="sitAtTable('POKER')">
+                <span id="p-mic" class="hidden text-[10px] text-red-500 mb-2 font-bold">🎤 LIVE MIC</span>
+                <div class="text-4xl mb-2">♥️</div>
+                <div class="font-black text-xs uppercase">No Limit Poker</div>
+            </div>
+        </div>
+        
+        <div id="chat-win" class="glass h-[350px] flex flex-col">
+            <div class="p-3 border-b border-white/10 gold text-[10px] font-bold uppercase">Empire Chat</div>
+            <div id="messages" class="flex-1 overflow-y-auto p-4 space-y-2 text-[11px] text-gray-300">
+                Welcome to the Empire. Respect is the only currency here.
+            </div>
+            <div class="p-3 border-t border-white/10 flex gap-2">
+                <input id="msg-in" type="text" placeholder="Speak..." class="bg-white/5 w-full rounded px-3 py-2 text-xs outline-none">
+                <button onclick="sendMsg()">🚀</button>
+            </div>
+        </div>
+
+        <div class="glass h-[350px] flex flex-col">
+            <div class="p-3 border-b border-white/10 gold text-[10px] font-bold uppercase">Global Elites</div>
+            <div id="l-list" class="p-4 space-y-3 overflow-y-auto text-[10px]">
+                <div class="flex justify-between"><span>1. Nicole T.</span><span class="gold">💰 1M</span></div>
+            </div>
         </div>
     </div>
 
     <script>
-        function toggleRadio() {
-            const a = document.getElementById('empireAudio');
-            const b = document.getElementById('r-btn');
-            if(a.paused) { a.play(); b.innerText = "EMPIRE RADIO: LIVE"; b.classList.add('bg-[#D4AF37]', 'text-black'); }
-            else { a.pause(); b.innerText = "EMPIRE RADIO: OFF"; b.classList.remove('bg-[#D4AF37]', 'text-black'); }
+        // --- CONFIG ---
+        const TMDB_TOKEN = 'PASTE_YOUR_TMDB_TOKEN_HERE'; 
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        const player = videojs('main-player', { fluid: true });
+        let currentBalance = 10000;
+
+        // --- EMPIRE LOGIC ---
+        function enterEmpire() {
+            document.getElementById('gate').style.opacity = '0';
+            setTimeout(() => { document.getElementById('gate').style.display = 'none'; }, 1000);
+            loadTrending();
         }
-        function sit(table) {
-            alert("Sitting at the " + table + " Table. Microphone active. Welcome to the Empire.");
+
+        async function loadTrending() {
+            const r = await fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=43e8f6e540b344399888c74e152933f7`); // Using a temp fallback key
+            const d = await r.json();
+            renderMovies(d.results);
+        }
+
+        function renderMovies(list) {
+            const row = document.getElementById('movie-row');
+            row.innerHTML = list.map(m => `
+                <div class="poster" onclick="playMovie('https://vjs.zencdn.net/v/oceans.mp4', '${m.title.replace(/'/g, "")}')">
+                    <img src="https://image.tmdb.org/t/p/w500${m.poster_path}" onerror="this.src='https://via.placeholder.com/500x750'">
+                    <div class="absolute bottom-0 p-4 bg-gradient-to-t from-black w-full text-[9px] font-black uppercase tracking-tighter">${m.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function playMovie(url, title) {
+            document.getElementById('player-container').classList.remove('hidden');
+            player.src({ type: 'video/mp4', src: url });
+            player.play();
+            window.scrollTo({ top: 150, behavior: 'smooth' });
+        }
+
+        function upgradeToVIP() {
+            if(currentBalance >= 5000) {
+                currentBalance -= 5000;
+                document.getElementById('balance').innerText = currentBalance;
+                document.getElementById('status').innerText = "VIP ELITE";
+                document.getElementById('up-btn').style.display = 'none';
+                alert("Welcome to the Elite, Nicole.");
+            } else {
+                alert("Insufficient funds in your vault.");
+            }
+        }
+
+        function sitAtTable(game) {
+            const id = game === 'SPADES' ? 's-mic' : 'p-mic';
+            document.getElementById(id).classList.toggle('hidden');
+            document.getElementById(id).classList.toggle('mic-active');
+            alert(`Sitting at the ${game} table. Mic active.`);
+        }
+
+        function sendMsg() {
+            const input = document.getElementById('msg-in');
+            if(input.value.trim() === "") return;
+            const msgRow = `<div><span class="gold font-bold uppercase">Guest:</span> ${input.value}</div>`;
+            document.getElementById('messages').innerHTML += msgRow;
+            input.value = "";
         }
     </script>
 </body>
